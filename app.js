@@ -44,7 +44,6 @@ function renderThreeImages() {
   console.table(Image.beingShown);
 }
 
-renderThreeImages();
 
 // The eventHandler function
 function eventHandler(e) {
@@ -61,16 +60,51 @@ function eventHandler(e) {
     Image.imgElTwo.removeEventListener('click', eventHandler);
     Image.imgElThree.removeEventListener('click', eventHandler);
 
+    for (var i = 0; i < Image.all.length; i++) {
+      var trEl = document.createElement('tr');
+
+      var tdEl = document.createElement('td');
+      tdEl.textContent = Image.all[i].name;
+      trEl.appendChild(tdEl);
+
+      tdEl = document.createElement('td');
+      tdEl.textContent = Image.all[i].timesShown;
+      trEl.appendChild(tdEl);
+
+      tdEl = document.createElement('td');
+      tdEl.textContent = Image.all[i].timesClicked;
+      trEl.appendChild(tdEl);
+
+      tdEl = document.createElement('td');
+      var percentageClicked;
+      if (Image.all[i].timesShown > 0) {
+        percentageClicked = (Image.all[i].timesClicked / Image.all[i].timesShown);
+      } else {
+        percentageClicked = 0;
+      }
+      tdEl.textContent = percentageClicked;
+      trEl.appendChild(tdEl);
+
+      Image.tableEl.appendChild(trEl);
+    }
+
     // >>>>>>>>>>>>>>>>>>>> DISPLAY THE DATA <<<<<<<<<<<<<<<<<<<<<
 
   } else {
-    for (var i = 0; i < 3; i++) {
-      Image.wasShown[i] = Image.beingShown[i];
+    for (var j = 0; j < 3; j++) {
+      Image.wasShown[j] = Image.beingShown[j];
     }
     renderThreeImages();
   }
 }
 
+// function makeTableRow() {
+//   tdEl = document.createElement('td');
+//   tdEl.textContent =
+// }
+
+// For the initial three images
+renderThreeImages();
 
 Image.imgElOne.addEventListener('click', eventHandler);
 Image.imgElTwo.addEventListener('click', eventHandler);
