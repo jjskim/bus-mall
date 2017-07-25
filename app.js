@@ -76,7 +76,7 @@ function eventHandler(e) {
     trEl.appendChild(thEl);
 
     thEl = document.createElement('th');
-    thEl.textContent = 'Percentage of Times Chosen';
+    thEl.textContent = 'Times Chosen Percentage';
     trEl.appendChild(thEl);
 
     Product.tableEl.appendChild(trEl);
@@ -105,12 +105,14 @@ function eventHandler(e) {
         percentageClicked = '0 percent';
       }
       tdEl.textContent = percentageClicked;
+      if (parseInt(percentageClicked) === 0) {
+        tdEl.style.color = 'red';
+        tdEl.style.fontWeight = 900;
+      }
       trEl.appendChild(tdEl);
 
       Product.tableEl.appendChild(trEl);
     }
-
-    // >>>>>>>>>>>>>>>>>>>> DISPLAY THE DATA <<<<<<<<<<<<<<<<<<<<<
 
   } else {
     for (var j = 0; j < 3; j++) {
@@ -119,11 +121,6 @@ function eventHandler(e) {
     renderThreeImages();
   }
 }
-
-// function makeTableRow() {
-//   tdEl = document.createElement('td');
-//   tdEl.textContent =
-// }
 
 // For the initial three images
 renderThreeImages();

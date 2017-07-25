@@ -1,0 +1,58 @@
+* {
+  font-family: 'Titillium Web', sans-serif;
+  width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+h1, h2, body, html, table, em {
+  border-style: none;
+}
+
+img {
+  display: inline-block;
+  margin-left: 100px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding-top: auto;
+  padding-bottom: auto;
+  border: 5px solid black;
+}
+
+em {
+  font-style: italic
+}
+
+table, th, td {
+  text-align: center;
+}
+
+tr, th, td {
+  border: dashed 2px black;
+}
+
+section {
+  border-bottom: 2px solid orange;
+  border-top: 2px solid green;
+  border-right: 2px solid green;
+  border-left: 2px solid orange;
+  margin-bottom: 50px;
+}
+
+tr:first-child {
+  color: #ff751a;
+}
+
+td:first-child {
+  color: #006622;
+  font-weight: 600;
+}
+
+th {
+  font-weight: bold;
+  font-size: 20px;
+}
