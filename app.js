@@ -189,6 +189,15 @@ function drawChart() {
     type: 'bar',
     data: data,
     options: {
+      title: {
+        display: true,
+        text: 'Number of Times Chosen By Product'
+      },
+      legend: {
+        labels: {
+          fontSize: 0
+        }
+      },
       responsive: false,
       animation: {
         duration: 1000,
