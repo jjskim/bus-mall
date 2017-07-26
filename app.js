@@ -136,6 +136,7 @@ var data = {
   datasets: [
     {
       data: Product.voteTotals, // votes array we declared earlier
+      label: Product.allNames,  // names of all the products
       backgroundColor: [
         'bisque',
         'darkgray',
@@ -194,9 +195,7 @@ function drawChart() {
         text: 'Number of Times Chosen By Product'
       },
       legend: {
-        labels: {
-          fontSize: 0
-        }
+        display: false
       },
       responsive: false,
       animation: {
