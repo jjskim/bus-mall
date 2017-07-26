@@ -14,6 +14,8 @@ Product.wasShown = [];
 Product.beingShown = [];
 Product.allNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
 
+Product.voteTotals = [];  // array of all the votes for each product
+
 // Creates all the images and pushes them into the Images.all array
 for (var i = 0; i < Product.allNames.length; i++) {
   new Product(Product.allNames[i]);
@@ -60,59 +62,66 @@ function eventHandler(e) {
     Product.imgElTwo.removeEventListener('click', eventHandler);
     Product.imgElThree.removeEventListener('click', eventHandler);
 
-    // Make the header row
-    var trEl = document.createElement('tr');
-
-    var thEl = document.createElement('th');
-    thEl.textContent = 'Product Name';
-    trEl.appendChild(thEl);
-
-    thEl = document.createElement('th');
-    thEl.textContent = 'Times Chosen';
-    trEl.appendChild(thEl);
-
-    thEl = document.createElement('th');
-    thEl.textContent = 'Times Shown';
-    trEl.appendChild(thEl);
-
-    thEl = document.createElement('th');
-    thEl.textContent = 'Times Chosen Percentage';
-    trEl.appendChild(thEl);
-
-    Product.tableEl.appendChild(trEl);
-
-    // The data rows
-    for (var i = 0; i < Product.all.length; i++) {
-      trEl = document.createElement('tr');
-
-      var tdEl = document.createElement('td');
-      tdEl.textContent = Product.all[i].name;
-      trEl.appendChild(tdEl);
-
-      tdEl = document.createElement('td');
-      tdEl.textContent = Product.all[i].timesClicked + ' time(s)';
-      trEl.appendChild(tdEl);
-
-      tdEl = document.createElement('td');
-      tdEl.textContent = Product.all[i].timesShown + ' time(s)';
-      trEl.appendChild(tdEl);
-
-      tdEl = document.createElement('td');
-      var percentageClicked;
-      if (Product.all[i].timesShown > 0) {
-        percentageClicked = Math.round(((Product.all[i].timesClicked / Product.all[i].timesShown) * 100)) + ' percent';
-      } else {
-        percentageClicked = '0 percent';
-      }
-      tdEl.textContent = percentageClicked;
-      if (parseInt(percentageClicked) === 0) {
-        tdEl.style.color = 'red';
-        tdEl.style.fontWeight = 900;
-      }
-      trEl.appendChild(tdEl);
-
-      Product.tableEl.appendChild(trEl);
+    // push the votes for each product into the votes array (needed for the draw chart method)
+    for (var k = 0; k < Product.all.length; k++) {
+      Product.voteTotals.push(Product.all[k].timesClicked);
     }
+
+    drawChart();
+
+    // // Make the header row
+    // var trEl = document.createElement('tr');
+    //
+    // var thEl = document.createElement('th');
+    // thEl.textContent = 'Product Name';
+    // trEl.appendChild(thEl);
+    //
+    // thEl = document.createElement('th');
+    // thEl.textContent = 'Times Chosen';
+    // trEl.appendChild(thEl);
+    //
+    // thEl = document.createElement('th');
+    // thEl.textContent = 'Times Shown';
+    // trEl.appendChild(thEl);
+    //
+    // thEl = document.createElement('th');
+    // thEl.textContent = 'Times Chosen Percentage';
+    // trEl.appendChild(thEl);
+    //
+    // Product.tableEl.appendChild(trEl);
+    //
+    // // The data rows
+    // for (var i = 0; i < Product.all.length; i++) {
+    //   trEl = document.createElement('tr');
+    //
+    //   var tdEl = document.createElement('td');
+    //   tdEl.textContent = Product.all[i].name;
+    //   trEl.appendChild(tdEl);
+    //
+    //   tdEl = document.createElement('td');
+    //   tdEl.textContent = Product.all[i].timesClicked + ' time(s)';
+    //   trEl.appendChild(tdEl);
+    //
+    //   tdEl = document.createElement('td');
+    //   tdEl.textContent = Product.all[i].timesShown + ' time(s)';
+    //   trEl.appendChild(tdEl);
+    //
+    //   tdEl = document.createElement('td');
+    //   var percentageClicked;
+    //   if (Product.all[i].timesShown > 0) {
+    //     percentageClicked = Math.round(((Product.all[i].timesClicked / Product.all[i].timesShown) * 100)) + ' percent';
+    //   } else {
+    //     percentageClicked = '0 percent';
+    //   }
+    //   tdEl.textContent = percentageClicked;
+    //   if (parseInt(percentageClicked) === 0) {
+    //     tdEl.style.color = 'red';
+    //     tdEl.style.fontWeight = 900;
+    //   }
+    //   trEl.appendChild(tdEl);
+    //
+    //   Product.tableEl.appendChild(trEl);
+    // }
 
   } else {
     for (var j = 0; j < 3; j++) {
@@ -120,6 +129,82 @@ function eventHandler(e) {
     }
     renderThreeImages();
   }
+}
+
+var data = {
+  labels: Product.allNames, // titles array we declared earlier
+  datasets: [
+    {
+      data: Product.voteTotals, // votes array we declared earlier
+      backgroundColor: [
+        'bisque',
+        'darkgray',
+        'burlywood',
+        'lightblue',
+        'lavender',
+        'lavenderblush',
+        'lemonchiffon',
+        'lightcyan',
+        'lightgoldenrodyellow',
+        'lightgreen',
+        'lightpink',
+        'lightsalmon',
+        'lightseagreen',
+        'lightskyblue',
+        'lightslategray',
+        'lightyellow',
+        'lightsteelblue',
+        'mintcream',
+        'midnightblue',
+        'peru'
+      ],
+      hoverBackgroundColor: [
+        'purple',
+        'purple',
+        'purple',
+        'purple',
+        'purple',
+        'purple',
+        'purple',
+        'purple',
+        'purple',
+        'purple',
+        'purple',
+        'purple',
+        'purple',
+        'purple',
+        'purple',
+        'purple',
+        'purple',
+        'purple',
+        'purple',
+        'purple'
+      ]
+    }]
+};
+
+function drawChart() {
+  var ctx = document.getElementById('results-chart').getContext('2d');
+  new Chart(ctx,{
+    type: 'bar',
+    data: data,
+    options: {
+      responsive: false,
+      animation: {
+        duration: 1000,
+        easing: 'easeOutBounce'
+      }
+    },
+    scales: {
+      yAxes: [{
+        ticks: {
+          max: 10,
+          min: 0,
+          stepSize: 1.0
+        }
+      }]
+    }
+  });
 }
 
 // For the initial three images
