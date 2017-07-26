@@ -16,10 +16,6 @@ Product.allNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegu
 
 Product.voteTotals = [];  // array of all the votes for each product
 
-// Creates all the images and pushes them into the Images.all array
-for (var i = 0; i < Product.allNames.length; i++) {
-  new Product(Product.allNames[i]);
-}
 
 Product.imgElOne = document.getElementById('image_one');
 Product.imgElTwo = document.getElementById('image_two');
@@ -49,6 +45,7 @@ function renderThreeImages() {
 
 // The eventHandler function
 function eventHandler(e) {
+
   if (e.target === Product.imgElOne) {
     Product.beingShown[0].timesClicked++;
   } else if (e.target === Product.imgElTwo) {
@@ -56,7 +53,13 @@ function eventHandler(e) {
   } else if (e.target === Product.imgElThree) {
     Product.beingShown[2].timesClicked++;
   }
+
+  localStorage.allProducts = JSON.stringify(Product.all);
+
+  // Increment the total number of clicks
   Product.totalClicks++;
+
+  // If the user has clicked 25 times, we end the survey and display data
   if (Product.totalClicks === 25) {
     Product.imgElOne.removeEventListener('click', eventHandler);
     Product.imgElTwo.removeEventListener('click', eventHandler);
@@ -64,7 +67,7 @@ function eventHandler(e) {
 
     // push the votes for each product into the votes array (needed for the draw chart method)
     for (var k = 0; k < Product.all.length; k++) {
-      Product.voteTotals.push(Product.all[k].timesClicked);
+      Product.voteTotals[k] = (Product.all[k].timesClicked);
     }
 
     drawChart();
@@ -213,6 +216,20 @@ function drawChart() {
     }
   });
 }
+
+if (localStorage.length > 0) {
+  // load the stuff
+  Product.all = JSON.parse(localStorage.allProducts);
+} else {
+
+  // Creates all the images and pushes them into the Images.all array
+  for (var i = 0; i < Product.allNames.length; i++) {
+    new Product(Product.allNames[i]);
+  }
+
+}
+
+
 
 // For the initial three images
 renderThreeImages();
